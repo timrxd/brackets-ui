@@ -1,0 +1,46 @@
+{
+  "bracketName": "Super Smash Con 2020",
+  "date": "fuck that, tbd",
+
+  "matches": [
+    {
+      "matchNumber": 0,
+      "player1": "Prettiest Girl In School / The Artist Formerly Known As Prince",
+      "player2": "MKLeo",
+      "player1Score": 0,
+      "player2Score": 2,
+      "games": [
+        "P1",
+        "P2",
+        "P2"
+      ]
+    },
+    {
+      "matchNumber": 1,
+      "player1": "Nairo",
+      "player2": "Tweek",
+      "player1Score": 2,
+      "player2Score": 1,
+      "games": [
+        "P1",
+        "P1"
+      ]
+    },
+    {
+      "matchNumber": 2,
+      "player1": "MKLeo",
+      "player2": "Nairo",
+      "player1Score": 1,
+      "player2Score": 2,
+      "games": [
+        "P1",
+        "P2",
+        "P2"
+      ]
+    }
+  ]
+  
+
+
+
+}
