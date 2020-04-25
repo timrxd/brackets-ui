@@ -4,6 +4,6 @@ import Frame from './frame.js';
 import './index.css';
 
 ReactDOM.render(
-  <Frame />,
+  <Frame className="frame"/>,
   document.getElementById('root')
 );

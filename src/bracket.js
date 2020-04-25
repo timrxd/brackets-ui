@@ -1,15 +1,16 @@
 import React from 'react';
 import './bracket.css';
 import './index.css';
-import bracketData from './data/bracket.json';
+import bracket4 from './data/4man.json';
+import bracket8 from './data/8man.json';
+import bracket16 from './data/16man.json';
 
 class Bracket extends React.Component {
 
   constructor(props) {
-    console.log(bracketData.matches);
     super(props);
     this.state = {
-      matches: bracketData.matches
+      matches: bracket16.matches
     };
   }
 
@@ -21,24 +22,87 @@ class Bracket extends React.Component {
     );
   }
 
+  renderButton(i) {
+    return (
+      <BracketButton 
+        value={i}
+        onClick={() => this.handleClick(i)}
+      />
+    );
+  }
+
+
+  handleClick(i) {
+    switch(i) {
+      case "4man": 
+        this.setState({matches: bracket4.matches})
+        break;
+      case "8man": 
+        this.setState({matches: bracket8.matches})
+        break;
+      case "16man": 
+        this.setState({matches: bracket16.matches})
+        break;
+      default:
+
+    }
+  }
+
   render() {
-    console.log(this.state.matches);
+
+    // Number of entrants = 2^(number of rounds)
+    let entrants = this.state.matches.length+1
+    let numRounds = Math.log2(entrants);
+    let rounds = Array(numRounds).fill(null);
+    for (let r = 0; r < numRounds; r++) {
+      rounds[r] = this.state.matches.slice(
+        entrants-(entrants/(Math.pow(2,r))),
+        entrants-(entrants/(Math.pow(2,r+1)))
+      );
+    }
+
+    let columns = "minmax(auto, 400px) ".repeat(numRounds).slice(0,-1);
+    let round = 0;
     return (
       <div className="bracket">
         <div>
-          Bracket
+          Bracket:  
+          {this.renderButton("4man")}
+          {this.renderButton("8man")}
+          {this.renderButton("16man")}
         </div>
-        <div className="grid-container">
-          <Round 
-            matches = {this.state.matches.slice(0,2)}
-          />
-          <Round
-            matches = {this.state.matches.slice(2,3)}
-          />
+        <div className="grid-container" style={{gridTemplateColumns: columns}}>
+          {rounds.map(function(m) {
+            return (
+              <Round 
+                round = {round}
+                key = {round++}
+                matches = {m}
+              />
+            );
+          })}
         </div>
       </div>
     );
   }
+}
+
+function Round(props) {
+  return (
+    <div className="round">
+
+      {props.matches.map(function(m) {
+        return (
+          <Match 
+            key={m.matchNumber}
+            match={m}
+            round={props.round}
+          />
+        );
+      })}
+
+    </div>
+  );
 }
 
 function Match(props) {
@@ -49,11 +113,8 @@ function Match(props) {
     p2Win = " winner";
   }
 
-  let padding = 0;
-  if (props.match.matchNumber === 2) {
-    padding = 60;
-  }
-
+  // FIX: not scalable
+  let padding = 51 * (Math.pow(2,props.round)-1);
   return (
     <div 
     style={{paddingTop: padding+'px', paddingBottom: padding+'px'}}>
@@ -69,26 +130,12 @@ function Match(props) {
   );
 }
 
-function Round(props) {
-
-
+function BracketButton(props) {
   return (
-    <div className="round">
-
-      {props.matches.map(function(m) {
-        return (
-          <Match 
-            key={m.matchNumber}
-            match={m}
-          />
-        );
-      })}
-
-    </div>
-  );
+    <button onClick={props.onClick}>
+      {props.value}
+    </button>
+  )
 }
-
-
-
 
 export default Bracket;
