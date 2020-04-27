@@ -1,15 +1,23 @@
-.grid-container {
+.bracket {
   overflow-x: scroll;
   display: grid;
-  grid-column-gap: 20px;
+  grid-column-gap: 50px;
   /* grid-template-columns: minmax(auto, 400px) minmax(auto, 400px);  */
+}
+
+.round {
+  height: auto;
+  display: grid;
+  align-content: space-around;
+  grid-template-columns: minmax(auto, 400px);
 }
 
 .match {
   border-style: solid;
   border-width: 2px;
   padding: 20px;
-  font: 24px "Century Gothic", Futura, sans-serif;
+  margin: 10px;
+  font: 18px "Century Gothic", Futura, sans-serif;
   background-color: white;
 }
 
@@ -23,6 +31,4 @@
   font-weight: bold;
 }
 
-.round {
-  height: auto;
-}
+

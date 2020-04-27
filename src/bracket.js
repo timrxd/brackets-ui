@@ -64,14 +64,19 @@ class Bracket extends React.Component {
     let columns = "minmax(auto, 400px) ".repeat(numRounds).slice(0,-1);
     let round = 0;
     return (
-      <div className="bracket">
+      <div>
         <div>
           Bracket:  
           {this.renderButton("4man")}
           {this.renderButton("8man")}
           {this.renderButton("16man")}
         </div>
-        <div className="grid-container" style={{gridTemplateColumns: columns}}>
+        <svg width="100" height="100">
+          <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+        </svg>
+        <div className="bracket" 
+        style={{gridTemplateColumns: columns}}>
+
           {rounds.map(function(m) {
             return (
               <Round 
@@ -113,11 +118,8 @@ function Match(props) {
     p2Win = " winner";
   }
 
-  // FIX: not scalable
-  let padding = 51 * (Math.pow(2,props.round)-1);
   return (
-    <div 
-    style={{paddingTop: padding+'px', paddingBottom: padding+'px'}}>
+    <div>
       <div className="match">
         <div className={"playerName"+p1Win} title={props.match.player1}>
           {props.match.player1Score} - {props.match.player1} - L W W L L
